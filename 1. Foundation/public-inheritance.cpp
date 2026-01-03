@@ -4,7 +4,12 @@
 
 /**
  * The "Derived is a Base" principle in public inheritance means a Derived object structurally contains a complete Base object and can therefore be safely substituted (upcast) via a Base* pointer. This Base* pointer acts as a compile-time viewfinder, only allowing access to members and methods defined in the Base class, and explicitly ignoring any unique Derived members for type safety. At run-time, if the method is declared virtual in the Base, the system uses polymorphism to execute the actual Derived class's implementation, making the object behave like the Derived type despite the Base pointer's limited view.
+ *
  * However, the reverse—treating a Base object as a Derived (downcast)—is unsafe and generally disallowed, as the Base object lacks the additional structure and behavior of the Derived class. Attempting such a downcast can lead to undefined behavior, crashes, or data corruption, since the Base object does not fulfill the Derived class's contract.
+ *
+ *
+ * Inheritance: is-a relationship, tight coupling(change in parent, change in all child), low flexibility(parent can't be changed), breaks encapsulation(can inherit protected members), static binding.
+ * Composition: has-a relationship, loose coupling, high flexibility(with base pointer, objects can be changed), preserves encapsulation, dynamic binding.
  */
 
 //======================================================================

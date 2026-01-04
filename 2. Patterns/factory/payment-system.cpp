@@ -3,6 +3,10 @@ using namespace std;
 
 /*
 Using strategy+factory pattern
+
+std::function<ReturnType(ArgumentTypes...)> wrapper_name; storing functions instead data
+unordered_map<PaymentType, function<PaymentStrategy*()>> registry;
+map[TYPE] = [](){ return new CreditCard(); };  A pointer to the logic (the lambda). runs only when: registry[type]()
 */
 
 class PaymentStrategy
@@ -89,6 +93,13 @@ public:
 
 int main()
 {
+    // the factory pattern, but violating the ocp principal as if else in createStrategy
+    // with PaymentStrategyFactory interface and derived classes, automatically ocp compliant
+    PaymentStrategy *strategy =
+        PaymentStrategyFactory::createStrategy(PaymentType::UPI);
+
+    PaymentService service(strategy); // the strategy pattern
+    service.processPayment(500);
 
     return 0;
 }

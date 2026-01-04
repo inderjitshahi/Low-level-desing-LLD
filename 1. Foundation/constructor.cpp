@@ -52,12 +52,13 @@ public:
 
 private:
     // Friend function to overload the << operator for easy printing of MyClass objects
+    // this is always a pinter to current object, not the object itself, so always this->, never this.
     // This allows us to use cout << myClassObject directly
     // friend have no effect of access specifiers, friend simply implies that this function can access private and protected members of MyClass
     // ostream is the standard output stream class in C++, while cout is an instance of ostream used for console output.
     // returning ostream& allows chaining of output operations (e.g., cout << obj1 << obj2;)
-    friend ostream& operator<<(ostream &o, const MyClass &obj)
-    {   
+    friend ostream &operator<<(ostream &o, const MyClass &obj)
+    {
         // since friend function is not a member function, it does not have access to 'this' pointer
         // o << "printing ostream overload " << this.name << "\n";
         o << "printing ostream overload " << obj.name << "\n";
@@ -84,7 +85,65 @@ MyClass func_returnByValue(const string &name_prefix)
     return temp_obj; // Copy Constructor (or Move/Elision) can happen here
 }
 
+class MyClass2
+{
+private:
+    int *data;
+    int size;
 
+public:
+    // 1. Constructor
+    MyClass2(int s) : size(s)
+    {
+        data = new int[size];
+    }
+
+    // 2. Destructor (Crucial for Rule of Three)
+    ~MyClass2()
+    {
+        delete[] data;
+    }
+
+    // --- YOUR REQUESTED IMPLEMENTATIONS ---
+
+    // 3. Copy Constructor
+    // Purpose: Create a NEW object as a copy of an existing one.
+    MyClass2(const MyClass2 &other)
+    {
+        size = other.size;
+        // Deep Copy: Allocate new memory and copy values
+        data = new int[size];
+        for (int i = 0; i < size; i++)
+        {
+            data[i] = other.data[i];
+        }
+    }
+
+    // 4. Copy Assignment Operator
+    // Purpose: Replace the data of an ALREADY EXISTING object with another's.
+    MyClass2 &operator=(const MyClass2 &other)
+    {
+        // Self-assignment check: what if someone does 'a = a;'?
+        if (this == &other)
+        {
+            return *this;
+        }
+
+        // Clean up current existing resource
+        delete[] data;
+
+        // Re-allocate and copy (Deep Copy)
+        size = other.size;
+        data = new int[size];
+        for (int i = 0; i < size; i++)
+        {
+            data[i] = other.data[i];
+        }
+
+        // Return a reference to allow 'a = b = c;'
+        return *this;
+    }
+};
 
 int main()
 {

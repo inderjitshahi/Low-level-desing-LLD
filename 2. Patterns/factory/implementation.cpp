@@ -64,16 +64,11 @@ public:
     }
 };
 
-// void runLogistics()
-// {
-//     Car *v = new Car(); // Tightly coupled to Car. Cannot change to Bike without editing this function.
-//     v->drive();
-// }
-
 // This function doesn't care if it's a Car or a Bike!
 void runLogistics(VehicleFactory *factory)
 {
     Vehicle *v = factory->createVehicle();
+    cout << "from independent function: ";
     v->drive();
 }
 
@@ -82,12 +77,13 @@ int main()
     VehicleFactory *factory = new CarFactory();
     Vehicle *vehicle = factory->createVehicle();
     vehicle->drive();
+
     factory = new BikeFactory();
     vehicle = factory->createVehicle();
     vehicle->drive();
-
+    // simple idea: a factory interface, and its derived factories
     // the real usage, runLogistic function can run independent of knowing the type of vehicle
-    runLogistics(new CarFactory()); // Now we decide the type in ONE place for the whole app.
+    runLogistics(factory); // Now we decide the type in ONE place for the whole app.
 
     return 0;
 }

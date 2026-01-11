@@ -100,9 +100,11 @@ public:
 
 int main()
 {
+    // subjects
     OrderService orderService;
     RideService rideService;
 
+    // Observers
     EmailNotifier email;
     SmsNotifier sms;
     PushNotifier push;

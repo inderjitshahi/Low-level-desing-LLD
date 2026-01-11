@@ -2,6 +2,8 @@
 #include <vector>
 #include <string>
 #include <algorithm>
+using namespace std;
+
 
 // 1. Forward declaration
 class ISubject;
@@ -15,7 +17,7 @@ public:
     virtual void update(ISubject *subject) = 0;
 };
 
-// 3. The Abstract Subject
+// 3. The Base Subject
 class ISubject
 {
 protected:
@@ -44,7 +46,7 @@ public:
 class StockMarket : public ISubject
 {
     float price;
-    std::string symbol;
+    string symbol;
 
 public:
     StockMarket(std::string s, float p) : symbol(s), price(p) {}
@@ -57,7 +59,7 @@ public:
 
     // Getters for the "Pull"
     float getPrice() const { return price; }
-    std::string getSymbol() const { return symbol; }
+    string getSymbol() const { return symbol; }
 };
 
 // 5. Concrete Observer (The Display)
@@ -84,9 +86,9 @@ public:
         // else if (auto *weather = dynamic_cast<WeatherStation *>(subject))
         // {
         //     std::cout << "Weather Update: " << weather->getTemp() << " degrees.\n";
-        }
     }
 };
+
 
 int main()
 {

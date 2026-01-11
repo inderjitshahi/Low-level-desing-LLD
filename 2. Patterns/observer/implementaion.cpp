@@ -2,7 +2,14 @@
 using namespace std;
 
 /*
-Observer Pattern defines a one-to-many dependency between objects, so that when one object (Subject) changes state, all its dependents (Observers) are notified automatically.
+Observer Pattern (Behavior): defines a one-to-many dependency between objects(subject to observers).
+
+Components:
+- Subject: maintains state and notifies observers.
+- Observer: interface declaring `update()`.
+- ConcreteSubject: stores state and manages observers.
+- ConcreteObserver: implements `update()` to react to changes.
+- Client: wires observers and subjects (e.g., `main`).
 
 */
 

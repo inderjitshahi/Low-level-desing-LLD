@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 /**
-1️⃣ What is the Strategy Pattern?
+1️⃣ What is the Strategy Pattern( Behavioral )?
 
 Define a family of algorithms, encapsulate each one, and make them interchangeable at runtime.
 

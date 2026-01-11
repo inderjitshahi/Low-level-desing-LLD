@@ -2,7 +2,7 @@
 using namespace std;
 
 /*
-Factory Method Pattern defines an interface for creating an object, but lets subclasses decide which class to instantiate.
+Factory Method( Creational ) Pattern defines an interface for creating an object, but lets subclasses decide which class to instantiate.
 In short:
     -Creation logic is separated
     -Client code depends on abstraction, not concrete classes

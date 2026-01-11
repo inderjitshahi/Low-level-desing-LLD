@@ -3,6 +3,7 @@
 #include <stack>
 using namespace std;
 
+// Receiver
 class TextEditor {
 private:
     string text;
@@ -70,7 +71,7 @@ public:
 };
 
 
-
+// Invoker
 class CommandManager {
 private:
     stack<Command*> undoStack;
@@ -108,8 +109,8 @@ public:
 
 
 int main() {
-    TextEditor editor;
-    CommandManager manager;
+    TextEditor editor; //receiver
+    CommandManager manager; //invoker
 
     manager.executeCommand(new InsertTextCommand(&editor, 0, "Hello"));
     manager.executeCommand(new InsertTextCommand(&editor, 5, " World"));

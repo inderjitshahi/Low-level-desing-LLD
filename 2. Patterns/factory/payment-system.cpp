@@ -46,6 +46,7 @@ public:
     }
 };
 
+// Benefits: scoped, type-safe enum (no implicit int conversions) and avoids name clashes
 enum class PaymentType
 {
     UPI,
@@ -72,6 +73,7 @@ public:
     }
 };
 
+// Context of strategy pattern
 class PaymentService
 {
 private:
@@ -80,6 +82,11 @@ private:
 public:
     PaymentService(PaymentStrategy *strategy) : strategy(strategy) {}
 
+    void setStrategy(PaymentStrategy *s)
+    {
+        strategy = s;
+    }
+    
     void processPayment(int amount)
     {
         strategy->pay(amount)

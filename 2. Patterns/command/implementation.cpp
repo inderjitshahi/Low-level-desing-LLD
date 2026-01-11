@@ -7,9 +7,9 @@ Encapsulate a request as an object, thereby letting you parameterize clients wit
 Command Pattern decouples:
     Invoker (who triggers) and,
     Receiver (who does the work)
-    via commands
+    via commands(it will have the receiver)
 
-    | Role                    | Responsibility                                 |
+| Role                    | Responsibility                                 |
 | ----------------------- | ---------------------------------------------- |
 | **Command (interface)** | Declares `execute()` (and optionally `undo()`) |
 | **ConcreteCommand**     | Binds a receiver and implements `execute()`    |

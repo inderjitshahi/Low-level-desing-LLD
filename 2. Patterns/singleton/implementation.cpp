@@ -14,7 +14,7 @@ this is always a pinter to current object
 class SingleTon
 {
 private:
-    //private constructor, prevents: SingleTon* object = new SingleTon(); or SingleTon newObject;
+    // private constructor, prevents: SingleTon* object = new SingleTon(); or SingleTon newObject;
     SingleTon()
     {
         // initialization logic
@@ -32,8 +32,6 @@ public:
         return instance;
     }
 };
-
-
 
 int main()
 {

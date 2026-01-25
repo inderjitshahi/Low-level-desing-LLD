@@ -37,7 +37,7 @@ private:
     XmlLogger *xmlLogger;
 
 public:
-    XmlToJsonLoggerAdaptor(XmlLogger *x) : xmlLogger(x) {}
+    XmlToJsonLoggerAdaptor(XmlLogger *x) : xmlLogger(x) {} //copy constructor
     void logJson(const string &message) override
     {
         // Translation logic

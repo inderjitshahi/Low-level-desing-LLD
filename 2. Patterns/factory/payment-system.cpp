@@ -86,7 +86,7 @@ public:
     {
         strategy = s;
     }
-    
+
     void processPayment(int amount)
     {
         strategy->pay(amount)

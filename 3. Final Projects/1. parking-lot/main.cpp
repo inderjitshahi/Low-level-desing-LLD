@@ -7,12 +7,19 @@
 #include <mutex>
 #include <unistd.h> //for sleep()
 #include <math.h>
-#include <ctime> //for time_t
+#include <optional> //for optional
+#include <ctime>    //for time_t
 
 /*
 Entities → stable ->  Vehicle, ParkingSpot, ParkingFloor, Ticket
 Strategies → changeable -> payment strategy, pricing strategy, These use interfaces / polymorphism
 Orchestrators → flow -> Parking Lot
+
+Locking Level:
+parkingLot: Global, all floors locked at once
+ParkingFloor: Floor locking, balanced, each floor can work independently
+ParkingSpot: Granular, highest lock overhead, overkill. Usefull only when action of parking takes a very long time , in that locking whole dont make sense
+
 */
 
 using namespace std;
@@ -121,6 +128,7 @@ class ParkingFloor
 {
 private:
     int floorNumber;
+    // it ows the parking spots, clear ownership defines clear lifecycle management
     vector<unique_ptr<ParkingSpot>> spots;
 
 public:
@@ -243,10 +251,11 @@ private:
     unique_ptr<PricingStrategy> pricingStrategy;
 
     // ParkingLot OWNS all active tickets
-    unordered_map<string, unique_ptr<Ticket>> activeTickets;
-
+    unordered_map<string, unique_ptr<Ticket>> activeTickets; // so that tickets don't outlive parkingLot
     int ticketNumber = 1;
-    mutex mtx;
+
+    // “If contention becomes high, we can move locking to floor-level(ParkingFloor) instead of locking the entire parking lot.”
+    // mutex mtx;
 
 public:
     ParkingLot(unique_ptr<PricingStrategy> strategy)
@@ -258,9 +267,9 @@ public:
     }
 
     // ✅ Returns ticketId, not Ticket*
-    string parkVehicle(shared_ptr<Vehicle> vehicle)
+    optional<string> parkVehicle(shared_ptr<Vehicle> vehicle)
     {
-        lock_guard<mutex> lock(mtx);
+        // lock_guard<mutex> lock(mtx);
 
         for (auto &floor : floors)
         {
@@ -278,7 +287,7 @@ public:
                 return ticketId;
             }
         }
-        return ""; // parking lot full
+        return nullopt; // parking lot full, Represents "Nothing"
     }
 
     double unparkVehicle(const string &ticketId,
@@ -342,7 +351,7 @@ int main()
 
     auto car = VehicleFactory::createVehicle("Car_101", VehicleType::CAR);
     string ticket = parkingLot.parkVehicle(car);
-    if (ticket == "")
+    if (!ticket.had_value())
     {
         cout << "Parking lot is full\n";
         return 0;

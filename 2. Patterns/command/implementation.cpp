@@ -2,6 +2,7 @@
 using namespace std;
 
 /*
+Behavioral Pattern: Command Pattern
 Encapsulate a request as an object, thereby letting you parameterize clients with different requests, queue or log requests, and support undo operations.
 
 Command Pattern decouples:

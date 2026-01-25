@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 /*
-Decorator Pattern allows you to add new behavior to an object dynamically without changing its existing code.
+Decorator Pattern (Structural) allows you to add new behavior to an object dynamically without changing its existing code.
     Uses composition over inheritance
     Wraps an object inside another object that has the same interface
     Behaviors can be stacked at runtime.

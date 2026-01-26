@@ -6,6 +6,23 @@
 #include <mutex>
 #include <climits>
 using namespace std;
+
+// To add a vip request, you would simply create a new VIPRequest class and a VIPSchedulingStrategy.
+/*
+in step():
+    if (!vipStops.empty()) {
+                int target = *vipStops.begin();
+                if (target > currentFloor) currentFloor++;
+                else if (target < currentFloor) currentFloor--;
+
+                if (currentFloor == target) {
+                    vipStops.erase(target);
+                    openDoor();
+                }
+                return; // Skip normal stops logic
+    }
+*/
+
 enum class Direction
 {
     UP,
